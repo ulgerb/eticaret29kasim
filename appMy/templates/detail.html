@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="col-md-12 col-lg-6 col-xl-6 mb-4 mb-lg-0">
                                     <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
+                                        <img src="{{ product.image.url }}"
                                             class="w-100" />
                                         <a href="#!">
                                             <div class="hover-overlay">
@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-6">
-                                    <h5>Quant trident shirts</h5>
+                                    <h5>{{ product.title }}</h5>
                                     <div class="d-flex flex-row">
                                         <div class="text-danger mb-1 me-2">
                                             <i class="fa fa-star"></i>
@@ -41,27 +41,21 @@
                                         <span>310</span>
                                     </div>
                                     <div class="mt-1 mb-0 text-muted small">
-                                        <span>100% cotton</span>
-                                        <span class="text-primary"> • </span>
-                                        <span>Light weight</span>
-                                        <span class="text-primary"> • </span>
-                                        <span>Best finish<br /></span>
+                                        <span>{{ product.category.title }}</span>
                                     </div>
-                                    <div class="mb-2 text-muted small">
+                                    <!-- <div class="mb-2 text-muted small">
                                         <span>Unique design</span>
                                         <span class="text-primary"> • </span>
                                         <span>For men</span>
                                         <span class="text-primary"> • </span>
                                         <span>Casual<br /></span>
-                                    </div>
+                                    </div> -->
                                     <p class="text-truncate mb-4 mb-md-0">
-                                        There are many variations of passages of Lorem Ipsum available, but the
-                                        majority have suffered alteration in some form, by injected humour, or
-                                        randomised words which don't look even slightly believable.
+                                        {{ product.text }}
                                     </p>
                                     <div class="d-flex flex-row align-items-center mb-1">
-                                        <h4 class="mb-1 me-1">$13.99</h4>
-                                        <span class="text-danger"><s>$20.99</s></span>
+                                        <h4 class="mb-1 me-1">${{ product.price }}</h4>
+                                        <span class="text-danger"><s>${{ product.price|add:1028 }}</s></span>
                                     </div>
                                     <h6 class="text-success">Free shipping</h6>
                                     <div class="d-flex flex-column mt-4">
@@ -75,127 +69,89 @@
                             </div>
                         </div>
                     </div>
-                    <section style="background-color: #ad655f;">
+
+                    <!-- YORUMLAR -->
+                    <section style="background-color: #d4d4d4;">
                         <div class="container my-5 py-5">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-12 col-lg-10">
                                     <h2>Yorumlar</h2>
                                     <div class="card text-dark">
-                                        <div class="card-body p-4">
-                                            <h4 class="mb-0">Recent comments</h4>
-                                            <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
-                    
-                                            <div class="d-flex flex-start">
-                                                <img class="rounded-circle shadow-1-strong me-3"
-                                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar"
-                                                    width="60" height="60" />
-                                                <div>
-                                                    <h6 class="fw-bold mb-1">Maggie Marsh</h6>
-                                                    <div class="d-flex align-items-center mb-3">
-                                                        <p class="mb-0">
-                                                            March 07, 2021
-                                                            <span class="badge bg-primary">Pending</span>
-                                                        </p>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
-                                                    </div>
-                                                    <p class="mb-0">
-                                                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                        industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                                        since the 1500s, when an unknown printer took a galley of type and
-                                                        scrambled it.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                    
-                                        <hr class="my-0" />
-                    
+                                        
+                                        
+                                        {% for i in comments %}
                                         <div class="card-body p-4">
                                             <div class="d-flex flex-start">
                                                 <img class="rounded-circle shadow-1-strong me-3"
                                                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(26).webp" alt="avatar"
                                                     width="60" height="60" />
                                                 <div>
-                                                    <h6 class="fw-bold mb-1">Lara Stewart</h6>
-                                                    <div class="d-flex align-items-center mb-3">
-                                                        <p class="mb-0">
-                                                            March 15, 2021
-                                                            <span class="badge bg-success">Approved</span>
-                                                        </p>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
-                                                        <a href="#!" class="text-success"><i class="fas fa-redo-alt ms-2"></i></a>
-                                                        <a href="#!" class="link-danger"><i class="fas fa-heart ms-2"></i></a>
+                                                    <h6 class="fw-bold mb-1">{{ i.user.username }} / <span class="text-muted">{{ i.user.get_full_name }}</span></h6>
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                                        <div>
+                                                            <h5>{{ i.title }}</h5>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <p class="mb-0">
+                                                                {{ i.date_now }}
+                                                                <span class="badge bg-success">Approved</span>
+                                                            </p>
+                                                            <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                                                            <a href="#!" class="text-success"><i class="fas fa-redo-alt ms-2"></i></a>
+                                                            <a href="#!" class="link-danger"><i class="fas fa-heart ms-2"></i></a>
+                                                        </div>
                                                     </div>
-                                                    <p class="mb-0">
-                                                        Contrary to popular belief, Lorem Ipsum is not simply random text. It
-                                                        has roots in a piece of classical Latin literature from 45 BC, making it
-                                                        over 2000 years old. Richard McClintock, a Latin professor at
-                                                        Hampden-Sydney College in Virginia, looked up one of the more obscure
-                                                        Latin words, consectetur, from a Lorem Ipsum passage, and going through
-                                                        the cites.
+                                                    <p class="mb-0" style="line-break: anywhere;">
+                                                        {{ i.text }}
                                                     </p>
+                                                    <div class="text-success">
+                                                        Puan: {{ i.like }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                     
-                                        <hr class="my-0" style="height: 1px;" />
-                    
-                                        <div class="card-body p-4">
-                                            <div class="d-flex flex-start">
-                                                <img class="rounded-circle shadow-1-strong me-3"
-                                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(33).webp" alt="avatar"
-                                                    width="60" height="60" />
-                                                <div>
-                                                    <h6 class="fw-bold mb-1">Alexa Bennett</h6>
-                                                    <div class="d-flex align-items-center mb-3">
-                                                        <p class="mb-0">
-                                                            March 24, 2021
-                                                            <span class="badge bg-danger">Rejected</span>
-                                                        </p>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
-                                                    </div>
-                                                    <p class="mb-0">
-                                                        There are many variations of passages of Lorem Ipsum available, but the
-                                                        majority have suffered alteration in some form, by injected humour, or
-                                                        randomised words which don't look even slightly believable. If you are
-                                                        going to use a passage of Lorem Ipsum, you need to be sure.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                    
-                                        <hr class="my-0" />
-                    
-                                        <div class="card-body p-4">
-                                            <div class="d-flex flex-start">
-                                                <img class="rounded-circle shadow-1-strong me-3"
-                                                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(24).webp" alt="avatar"
-                                                    width="60" height="60" />
-                                                <div>
-                                                    <h6 class="fw-bold mb-1">Betty Walker</h6>
-                                                    <div class="d-flex align-items-center mb-3">
-                                                        <p class="mb-0">
-                                                            March 30, 2021
-                                                            <span class="badge bg-primary">Pending</span>
-                                                        </p>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
-                                                        <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
-                                                    </div>
-                                                    <p class="mb-0">
-                                                        It uses a dictionary of over 200 Latin words, combined with a handful of
-                                                        model sentence structures, to generate Lorem Ipsum which looks
-                                                        reasonable. The generated Lorem Ipsum is therefore always free from
-                                                        repetition, injected humour, or non-characteristic words etc.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <hr class="my-0" style="height: 1px;" /> 
+                                        {% endfor %}
+                                            
                                     </div>
+                                </div>
+                                <div class="col-md-12 col-lg-10 mt-5 p-3 bg-dark" style="border: 4px solid rgb(43, 23, 23);">
+                                    <h2 class="text-white">Yorum Yap</h2>
+                                    
+                                    {% if request.user.is_authenticated %}
+            
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <select name="like" required class="form-select mb-2" aria-label="Default select example">
+                                            <option selected value="puan">Puanla</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        
+                                        {% if hata %}
+                                            <div class="text-danger">{{ hata }}</div>
+                                        {% endif %}
+                                            
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="title" class="form-control" id="floatingInput" placeholder="Yorum Konusu">
+                                            <label for="floatingInput">Yorum Konusu</label>
+                                        </div>
+                                        <div class="form-floating">
+                                            <textarea class="form-control" name="text" placeholder="Yorum yaz" id="floatingTextarea2"
+                                                style="height: 100px"></textarea>
+                                            <label for="floatingTextarea2">Yorum</label>
+                                        </div>
+                                        <button type="submit" name="button" value="formComment" class="btn btn-success mt-2">
+                                            Paylaş
+                                        </button>
+                                    </form>
+                                    {% else %}
+                                    <a href="/login/" class="text-success">Yorum yapmak için kaydol</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

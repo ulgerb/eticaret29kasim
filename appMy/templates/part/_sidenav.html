@@ -1,12 +1,11 @@
 {% load static %}
 
 <div class="list-group list-group-light">
-    <a href="#" class="list-group-item list-group-item-action px-3 border-0 active ripple" aria-current="true">The
-        current link item with a ripple</a>
-    <a href="#" class="list-group-item list-group-item-action px-3 border-0 ripple">A second link item with
-        a ripple</a>
-    <a href="#" class="list-group-item list-group-item-action px-3 border-0 ripple">A third link item with
-        a ripple</a>
-    <a href="#" class="list-group-item list-group-item-action px-3 border-0 ripple">A fourth link item with
-        a ripple</a>
+    
+    {% for i in categorys %}
+    <a href="#" class="list-group-item list-group-item-action px-3 my-2 border-0 active ripple" aria-current="true">
+        {{ i.title }}
+    </a>
+    {% endfor %}
+
 </div>

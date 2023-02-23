@@ -22,4 +22,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Comment(models.Model):
+    user = models.ForeignKey(User, verbose_name=("Kullanıcı"), on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name=("Ürün"), on_delete=models.CASCADE)
+    title = models.CharField(("Yorum Başlığı"), max_length=50)
+    text = models.TextField(("Yorum"))
+    date_now = models.DateField(("Yorum Tarihi"), auto_now_add=True)
+    like = models.IntegerField(("Ürün Puanı"), default=5)
 
+    def __str__(self):
+        return self.user.username

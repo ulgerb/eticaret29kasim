@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
     path('products/', Products, name="Products"),
-    path('detail/', Detail, name="Detail"),
+    path('detail/<id>/', Detail, name="Detail"), 
     path('shoping/', Shoping, name="Shoping"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
