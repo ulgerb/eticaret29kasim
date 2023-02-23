@@ -3,7 +3,7 @@
 <div class="list-group list-group-light">
     
     {% for i in categorys %}
-    <a href="#" class="list-group-item list-group-item-action px-3 my-2 border-0 active ripple" aria-current="true">
+    <a href="/products/{{ i.id }}/" class="list-group-item list-group-item-action px-3 my-2 border-0 active ripple" aria-current="true">
         {{ i.title }}
     </a>
     {% endfor %}

@@ -19,11 +19,17 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from appMy.views import *
+from appUser.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
-    path('products/', Products, name="Products"),
+    path('', index,name='index'),
+    path('products/<cid>/', Products, name="Products"),
     path('detail/<id>/', Detail, name="Detail"), 
     path('shoping/', Shoping, name="Shoping"),
+    # USER
+    path('login/', loginUser, name='loginUser'),
+    path('register/', registerUSER, name='registerUser'),
+    path('logout/', logoutUser, name='logoutUser'),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

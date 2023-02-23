@@ -5,9 +5,15 @@ from .models import *
 def index(request):
     return render(request, 'index.html')
 
-def Products(request):
-    products = Product.objects.all()
+def Products(request,cid="all"):
     categorys = Category.objects.all()
+    if cid == "all":
+        products = Product.objects.all()
+    else:
+        category = Category.objects.get(id=cid)
+        products = Product.objects.filter(category=category)
+        
+        
     
     context = {
         "products": products,
@@ -23,7 +29,7 @@ def Detail(request,id):
         "comments": comments,
     }
     if request.method == "POST":
-        if request.POST["button"] == "formComment" and request.user.is_authenticated():
+        if request.POST["button"] == "formComment" and request.user.is_authenticated:
             title = request.POST["title"]
             text = request.POST["text"]
             like = request.POST["like"]
