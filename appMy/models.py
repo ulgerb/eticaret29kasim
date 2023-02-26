@@ -33,3 +33,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Shops(models.Model):
+    user = models.ForeignKey(User, verbose_name=("Kullanıcı"), on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name=("Ürün"), on_delete=models.CASCADE)
+    count = models.IntegerField(("Adet"))
+    total_price = models.FloatField(("Ürünlerin Fiyatı "))
+    
+    def __str__(self):
+        return self.user.username

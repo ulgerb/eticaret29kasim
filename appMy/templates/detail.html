@@ -38,7 +38,7 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <span>310</span>
+                                        <span>{{ product.likes }}</span>
                                     </div>
                                     <div class="mt-1 mb-0 text-muted small">
                                         <span>{{ product.category.title }}</span>
@@ -59,10 +59,11 @@
                                     </div>
                                     <h6 class="text-success">Free shipping</h6>
                                     <div class="d-flex flex-column mt-4">
-                                        <button class="btn btn-primary btn-sm" type="button">Details</button>
-                                        <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                                            Add to wishlist
-                                        </button>
+                                        <form method="POST" class="d-flex">
+                                            {% csrf_token %}
+                                            <input type="number" name="count" min="0" max="10" value="1" class="form-control me-3 w-25" id="">
+                                            <button name="button" value="formShop" class="btn btn-primary btn-sm" type="submit">Sepete Ekle</button>
+                                        </form>
                                     </div>
                                 </div>
                                 
