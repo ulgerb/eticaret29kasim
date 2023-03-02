@@ -22,9 +22,9 @@ def Products(request,cid="all"):
     return render(request, 'products.html',context)
 
 def Detail(request,id):
-    likes = 0
     product = Product.objects.get(id=id)
-    comments = Comment.objects.filter(product=product)
+    comments = Comment.objects.filter(product=product) # 0 yorum varken
+    
     context = {
         "product": product,
         "comments": comments,
@@ -37,11 +37,11 @@ def Detail(request,id):
             if like != "puan":
                 comment = Comment(user=request.user,title=title,text=text,like=like,product=product)
                 comment.save()
-                likes = int(like)
+                comments = Comment.objects.filter(product=product) # 1 yorum var
+                likes = 0
                 for i in comments:
                     likes += i.like
-                
-                product.likes = round(likes / (len(comments)+1),1)
+                product.likes = round(likes / (len(comments)),1)
                 product.save()
                 
                 return HttpResponseRedirect("/detail/"+id+"/")
@@ -67,4 +67,19 @@ def Detail(request,id):
     return render(request,'detail.html',context)
 
 def Shoping(request):
-    return render(request,'shoping.html')
+    toplam = 0
+    shops = Shops.objects.filter(user=request.user)
+    for i in shops:
+        toplam += i.total_price
+    
+    context = {
+        "shops":shops,
+        "toplam": toplam,
+    }
+    return render(request,'shoping.html', context)
+
+def shopingDelete(request,sid):
+    shop = Shops.objects.get(id=sid)
+    shop.delete()
+    
+    return redirect('Shoping')

@@ -27,6 +27,7 @@ urlpatterns = [
     path('products/<cid>/', Products, name="Products"),
     path('detail/<id>/', Detail, name="Detail"), 
     path('shoping/', Shoping, name="Shoping"),
+    path('shopingDelete/<sid>/', shopingDelete, name="shopingDelete"),
     # USER
     path('login/', loginUser, name='loginUser'),
     path('register/', registerUSER, name='registerUser'),
