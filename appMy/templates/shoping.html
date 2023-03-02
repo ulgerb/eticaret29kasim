@@ -72,19 +72,26 @@ border-bottom-right-radius: 16px;
                                             <h6 class="text-muted">{{ i.product.category.title }}</h6>
                                             <h6 class="text-black mb-0">{{ i.product.title }}</h6>
                                         </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <button class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-
-                                            <input id="form1" min="0" name="quantity" value="{{ i.count }}" type="number"
-                                                class="form-control form-control-sm" />
-
-                                            <button class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
+                                        <div class="col-md-3 col-lg-3 col-xl-2">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <div class="d-flex">
+                                                    <button class="btn btn-link px-2" type="button"
+                                                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+        
+                                                    <input id="form1" min="0" name="count" value="{{ i.count }}" type="number"
+                                                        class="form-control form-control-sm" />
+        
+                                                    <button class="btn btn-link px-2" type="button"
+                                                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <input type="hidden" name="shopid" value="{{ i.id }}">
+                                                <button type="submit" name="button" value="formUpdate" class="btn btn-primary px-2 m-3">Güncelle</button>   
+                                            </form>
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                             <h6 class="mb-0">€ {{ i.total_price }}</h6>

@@ -19,6 +19,7 @@ class Product(models.Model):
     stok = models.IntegerField(("Stok"), default=0)
     date_now = models.DateField(("Tarih"), auto_now_add=True)
     likes = models.FloatField(("Beğeni Ortalaması"), default=0)
+    comments_number = models.IntegerField(("Yorum Sayısı"), default=0) 
 
     def __str__(self):
         return self.title

@@ -3,7 +3,15 @@ from .models import *
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    categorys = Category.objects.all()
+    products = Product.objects.filter(likes__gte= 3.4)
+    # products = Product.objects.filter(likes__lte= 3.4)
+
+    context = {
+        "products": products,
+        "categorys": categorys,
+    }
+    return render(request, 'index.html',context)
 
 def Products(request,cid="all"):
     categorys = Category.objects.all()
@@ -12,7 +20,6 @@ def Products(request,cid="all"):
     else:
         category = Category.objects.get(id=cid)
         products = Product.objects.filter(category=category)
-        
         
     
     context = {
@@ -37,7 +44,10 @@ def Detail(request,id):
             if like != "puan":
                 comment = Comment(user=request.user,title=title,text=text,like=like,product=product)
                 comment.save()
+                
                 comments = Comment.objects.filter(product=product) # 1 yorum var
+                product.comments_number = len(comments)
+                product.save()
                 likes = 0
                 for i in comments:
                     likes += i.like
@@ -69,6 +79,18 @@ def Detail(request,id):
 def Shoping(request):
     toplam = 0
     shops = Shops.objects.filter(user=request.user)
+
+    if request.method == "POST":
+        if request.POST.get("button") == "formUpdate":
+            shopid = request.POST.get("shopid")
+            count = request.POST.get("count")
+            
+            shop = shops.get(id=shopid)
+            shop.count = int(count)
+            shop.total_price = shop.product.price * int(count)
+            shop.save()
+            return redirect('Shoping')
+            
     for i in shops:
         toplam += i.total_price
     
